@@ -1,0 +1,39 @@
+name: Python-CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - backend@*
+    paths:
+      - "backend/**"
+      - ".github/workflows/python-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - ".github/workflows/python-ci.yml"
+
+jobs:
+  python-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: requirement
+        run: cd api && poetry install
+      - name: Pylint Install
+        run: pip install pylint
+      - name: Pylint Execute
+        run: |
+          cd backend
+          pylint api/ --disable='too-few-public-methods,import-error'
+      - name: Black Format
+        uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./backend/api"
