@@ -2,17 +2,9 @@ name: Python-CI
 
 on:
   pull_request:
-    branches:
-      - '*'
-    paths:
-      - "api/**"
-      - ".github/workflows/python-ci.yml"
-  push:
-    branches:
-      - '*'
-    paths:
-      - "api/**"
-      - ".github/workflows/python-ci.yml"
+    types:
+      - opened
+      - synchronize
 
 jobs:
   python-ci:
