@@ -1,9 +1,7 @@
 name: Python-CI
-
 on:
   pull_request:
     types: [opened, synchronize]
-
 jobs:
   python-ci:
     runs-on: ubuntu-latest
