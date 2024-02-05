@@ -9,7 +9,7 @@ on:
       - ".github/workflows/python-ci.yml"
   push:
     branches:
-      - main
+      - '*'
     paths:
       - "api/**"
       - ".github/workflows/python-ci.yml"
