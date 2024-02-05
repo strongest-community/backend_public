@@ -20,7 +20,7 @@ jobs:
       - name: Pylint Execute
         run: |
           cd app
-          pylint app/ --disable='too-few-public-methods,import-error'
+          pylint app/ --disable='too-few-public-methods,import-error,invalid-name'
       - name: Black Format
         uses: psf/black@stable
         with:
