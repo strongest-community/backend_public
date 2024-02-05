@@ -23,13 +23,15 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
-      - name: requirement
-        run: cd api && poetry install
+      - name: Install Poetry
+        run: pip install poetry
+      - name: poetry
+        run: poetry install
       - name: Pylint Install
         run: pip install pylint
       - name: Pylint Execute
         run: |
-          cd backend
+          cd api
           pylint api/ --disable='too-few-public-methods,import-error'
       - name: Black Format
         uses: psf/black@stable
