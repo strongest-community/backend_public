@@ -6,13 +6,13 @@ on:
       - main
       - backend@*
     paths:
-      - "backend/**"
+      - "api/**"
       - ".github/workflows/python-ci.yml"
   push:
     branches:
       - main
     paths:
-      - "backend/**"
+      - "api/**"
       - ".github/workflows/python-ci.yml"
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
-          python-version: 3.11
+          python-version: 3.9
       - name: requirement
         run: cd api && poetry install
       - name: Pylint Install
@@ -36,4 +36,4 @@ jobs:
         uses: psf/black@stable
         with:
           options: "--check --verbose"
-          src: "./backend/api"
+          src: "./api"
