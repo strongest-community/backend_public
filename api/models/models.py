@@ -19,6 +19,7 @@ class Plan(Base):
     with_whom = Column(String(256))
 
     places = relationship("Place", back_populates="plan")
+    comments = relationship("Comment", back_populates="plan")
 
 
 class Place(Base):
@@ -33,32 +34,13 @@ class Place(Base):
     plan = relationship("Plan", back_populates="places")
 
 
-class User(Base):
-    """User model"""
+class Comment(Base):
+    """Comment model"""
 
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(20))
-    mail = Column(String(128))
-
-
-class PlanCommentRelation(Base):
-    """PlanCommentRelation model"""
-
-    __tablename__ = "plan_comment_relation"
+    __tablename__ = "comments"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
     plan_id = Column(Integer, ForeignKey("plans.id"))
     comment = Column(String(140))
-
-
-class PlanLikeRelation(Base):
-    """PlanLikeRelation model"""
-
-    __tablename__ = "plan_like_relation"
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    plan_id = Column(Integer, ForeignKey("plans.id"))
+    stars = Column(Integer)
+    plan = relationship("Plan", back_populates="comments")

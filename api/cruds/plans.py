@@ -28,7 +28,9 @@ async def create_plan(db: AsyncSession, plan: plan_schema.PlanCreate):
 async def get_all_plans(db: AsyncSession):
     """Get all plans."""
     result = await db.execute(
-        select(models.Plan).options(selectinload(models.Plan.places))
+        select(models.Plan).options(
+            selectinload(models.Plan.places), selectinload(models.Plan.comments)
+        )
     )
     plans = result.scalars().all()
     return plans
