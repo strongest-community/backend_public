@@ -3,6 +3,7 @@
 from typing import Optional, List
 from pydantic import BaseModel, Field
 from api.schemas.place import Place, PlaceCreate
+from api.schemas.comment import Comment
 
 
 class PlanBase(BaseModel):
@@ -38,6 +39,7 @@ class Plan(PlanBase):
 
     id: int
     places: List[Place]
+    comments: List[Comment]
 
     class Config:
         """Config"""
