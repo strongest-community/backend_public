@@ -45,5 +45,12 @@ async def list_plans():
     """dami-deta function"""
     return {"plans": plans}
 
+@router.post("/plans/")
+async def create_task():
+    return {"plans": plans}
 
-
+@router.get("/plans/{plan_id}")
+async def list_plan(plan_id: int):
+    for plan in plans:
+        if plan["id"] == plan_id:
+            return plan
