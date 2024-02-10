@@ -12,8 +12,6 @@ class PlaceBase(BaseModel):
 class PlaceCreate(PlaceBase):
     """PlaceCreate"""
 
-    pass
-
 
 class Place(PlaceBase):
     """Place"""
