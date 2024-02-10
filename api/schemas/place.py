@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 class PlaceBase(BaseModel):
     """PlaceBase class"""
 
-    place_id: int = Field(..., example=123)
+    plan_id: int = Field(..., example=123)
     url: str = Field(..., example="http://example.com/place")
 
 

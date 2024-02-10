@@ -39,8 +39,9 @@ async def list_plans(db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/plans/")
-async def create_plan(plan: plan_schema.PlanCreate, db: AsyncSession = Depends(get_db)):
-    return await plans_crud.create_plan(db=db, plan=plan)
+async def create_plan():
+    # return await plans_crud.create_plan(db=db, plan=plan)
+    return {"plans": plans}
 
 
 # @router.get("/plans/{plan_id}")

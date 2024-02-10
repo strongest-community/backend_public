@@ -3,6 +3,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.engine import Result
+from sqlalchemy.orm import selectinload
 
 import api.models.models as models
 import api.schemas.plan as plan_schema
@@ -28,14 +29,8 @@ async def create_plan(db: AsyncSession, plan: plan_schema.PlanCreate):
 
 
 async def get_all_plans(db: AsyncSession):
-    result: Result = await db.execute(
-        select(
-            models.Plan.id,
-            models.Plan.description,
-            models.Plan.budget,
-            models.Plan.situation,
-            models.Plan.with_whom,
-            models.Place.url,
-        ).outerjoin(models.Place)
+    result = await db.execute(
+        select(models.Plan).options(selectinload(models.Plan.places))
     )
-    return result.all()
+    plans = result.scalars().all()
+    return plans
