@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["fastapi"]
+  "cSpell.words": ["fastapi", "sessionmaker"],
+  "python.analysis.extraPaths": ["/usr/local/lib/python3.9/site-packages"]
 }
