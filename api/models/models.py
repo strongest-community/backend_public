@@ -1,6 +1,8 @@
 """models.py"""
 
 from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+
 from api.db import Base
 
 
@@ -15,6 +17,8 @@ class Plan(Base):
     situation = Column(String(256))
     with_whom = Column(String(256))
 
+    places = relationship("Place", back_populates="plan")
+
 
 class Place(Base):
     """Place model"""
@@ -24,6 +28,8 @@ class Place(Base):
     id = Column(Integer, primary_key=True, index=True)
     plan_id = Column(Integer, ForeignKey("plans.id"))
     url = Column(String(1024))
+
+    plan = relationship("Plan", back_populates="places")
 
 
 class User(Base):

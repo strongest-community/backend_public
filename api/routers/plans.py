@@ -1,4 +1,9 @@
-from fastapi import APIRouter
+from typing import List
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+import api.cruds.plans as plans_crud
+import api.schemas.plan as plan_schema
+from api.db import get_db
 
 router = APIRouter()
 
@@ -12,17 +17,9 @@ plans = [
         "situation": "家族旅行",
         "with_whom": "家族",
         "places": [
-            {
-                "id": 1,
-                "plan_id": 1,
-                "url": "https://example.com/place1"
-            },
-            {
-                "id": 2,
-                "plan_id": 1,
-                "url": "https://example.com/place2"
-            }
-        ]
+            {"id": 1, "plan_id": 1, "url": "https://example.com/place1"},
+            {"id": 2, "plan_id": 1, "url": "https://example.com/place2"},
+        ],
     },
     {
         "id": 2,
@@ -30,27 +27,25 @@ plans = [
         "budget": 50000,
         "situation": "友人との旅行",
         "with_whom": "友人",
-        "places": [
-            {
-                "id": 3,
-                "plan_id": 2,
-                "url": "https://example.com/place3"
-            }
-        ]
-    }
+        "places": [{"id": 3, "plan_id": 2, "url": "https://example.com/place3"}],
+    },
 ]
 
-@router.get("/plans/")
-async def list_plans():
+
+@router.get("/plans/", response_model=List[plan_schema.Plan])
+async def list_plans(db: AsyncSession = Depends(get_db)):
     """dami-deta function"""
-    return {"plans": plans}
+    return await plans_crud.get_all_plans(db)
+
 
 @router.post("/plans/")
-async def create_task():
+async def create_plan():
+    # return await plans_crud.create_plan(db=db, plan=plan)
     return {"plans": plans}
 
-@router.get("/plans/{plan_id}")
-async def list_plan(plan_id: int):
-    for plan in plans:
-        if plan["id"] == plan_id:
-            return plan
+
+# @router.get("/plans/{plan_id}")
+# async def list_plans(plan_id: int):
+#     for plan in plans:
+#         if plan["id"] == plan_id:
+#             return plan
