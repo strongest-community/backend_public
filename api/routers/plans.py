@@ -1,5 +1,7 @@
+"""plans router module."""
+
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 import api.cruds.plans as plans_crud
 import api.schemas.plan as plan_schema
@@ -17,6 +19,7 @@ async def list_plans(db: AsyncSession = Depends(get_db)):
 
 @router.post("/plans/")
 async def create_plan(plan: plan_schema.PlanCreate, db: AsyncSession = Depends(get_db)):
+    """Create a plan endpoint."""
     db_plan = await plans_crud.create_plan(db, plan)
     db_plan_id = db_plan.id
     for place in plan.places:
@@ -26,4 +29,5 @@ async def create_plan(plan: plan_schema.PlanCreate, db: AsyncSession = Depends(g
 
 @router.get("/plans/{plan_id}")
 async def list_plan(plan_id: int, db: AsyncSession = Depends(get_db)):
+    """endpoint for get a plan by id"""
     return await plans_crud.get_task_by_id(db, plan_id)

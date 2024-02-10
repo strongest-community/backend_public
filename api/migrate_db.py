@@ -13,6 +13,7 @@ engine = create_engine(DB_URL, echo=True)
 
 
 def reset_database():
+    """Reset the database."""
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 

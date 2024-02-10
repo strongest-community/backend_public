@@ -2,7 +2,6 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from sqlalchemy.engine import Result
 from sqlalchemy.orm import selectinload
 
 import api.models.models as models
@@ -10,6 +9,7 @@ import api.schemas.plan as plan_schema
 
 
 async def create_plan(db: AsyncSession, plan: plan_schema.PlanCreate):
+    """Create a plan"""
     db_plan = models.Plan(
         title=plan.title,
         description=plan.description,
@@ -26,6 +26,7 @@ async def create_plan(db: AsyncSession, plan: plan_schema.PlanCreate):
 
 
 async def get_all_plans(db: AsyncSession):
+    """Get all plans."""
     result = await db.execute(
         select(models.Plan).options(selectinload(models.Plan.places))
     )
@@ -34,6 +35,7 @@ async def get_all_plans(db: AsyncSession):
 
 
 async def get_task_by_id(db: AsyncSession, plan_id: int):
+    """Get a plan by id."""
     result = await db.execute(
         select(models.Plan)
         .where(models.Plan.id == plan_id)
