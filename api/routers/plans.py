@@ -3,10 +3,13 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+
 import api.cruds.plans as plans_crud
 import api.schemas.plan as plan_schema
 import api.cruds.places as places_crud
 from api.db import get_db
+from api.auth.auth2 import get_current_user
+
 
 router = APIRouter()
 
@@ -18,7 +21,11 @@ async def list_plans(db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/plans/")
-async def create_plan(plan: plan_schema.PlanCreate, db: AsyncSession = Depends(get_db)):
+async def create_plan(
+    plan: plan_schema.PlanCreate,
+    db: AsyncSession = Depends(get_db),
+    _: str = Depends(get_current_user),
+):
     """Create a plan endpoint."""
     db_plan = await plans_crud.create_plan(db, plan)
     db_plan_id = db_plan.id
