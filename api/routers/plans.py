@@ -24,8 +24,6 @@ async def create_plan(plan: plan_schema.PlanCreate, db: AsyncSession = Depends(g
     return {"id": db_plan_id}
 
 
-# @router.get("/plans/{plan_id}")
-# async def list_plans(plan_id: int):
-#     for plan in plans:
-#         if plan["id"] == plan_id:
-#             return plan
+@router.get("/plans/{plan_id}")
+async def list_plan(plan_id: int, db: AsyncSession = Depends(get_db)):
+    return await plans_crud.get_task_by_id(db, plan_id)
