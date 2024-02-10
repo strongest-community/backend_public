@@ -8,6 +8,7 @@ from api.schemas.place import Place, PlaceCreate
 class PlanBase(BaseModel):
     """PlanBase class は PlanCreate と Plan の共通のフィールドを持つ"""
 
+    title: Optional[str] = Field(..., example="家族旅行")
     description: Optional[str] = Field(None, example="家族で沖縄旅行")
     budget: Optional[int] = Field(None, example=100000)
     situation: Optional[str] = Field(None, example="家族旅行")
@@ -24,7 +25,7 @@ class PlanCreateResponse(PlanCreate):
     """PlanCreate のレスポンスモデル"""
 
     id: int
-    places: List[Place]
+    places: List[Place] = []
 
     class Config:
         """Config"""

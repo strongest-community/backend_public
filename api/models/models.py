@@ -12,6 +12,7 @@ class Plan(Base):
     __tablename__ = "plans"
 
     id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(256))
     description = Column(String(512))
     budget = Column(Integer)
     situation = Column(String(256))
