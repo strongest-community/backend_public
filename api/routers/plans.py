@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from . import crud, models, schemas
-from .database import SessionLocal
+import api.cruds.plans as plan_crud
+import api.schemas.plan as plan_schema
+from api.db import get_db
+
+
 router = APIRouter()
 
 
@@ -43,21 +46,17 @@ plans = [
 ]
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.get("/plans/")
 async def list_plans():
     """dami-deta function"""
     return {"plans": plans}
 
-@router.post("/plans/")
-async def create_plan(plan: schemas.PlanCreate, db: Session = Depends(get_db)):
-    return crud.create_plan(db=db, plan=plan)
+@router.post("/plans/", response_model=plan_schema.PlanCreateResponse)
+async def create_plan(plan: plan_schema.PlanCreate, db: Session = Depends(get_db)):
+    db_plan = await plan_crud.create_plan(db=db, plan=plan)
+
+    return db_plan
 
 @router.get("/plans/{plan_id}")
 async def list_plans(plan_id: int):

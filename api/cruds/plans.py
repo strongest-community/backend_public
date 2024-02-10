@@ -1,9 +1,15 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+import api.models.models as models
+import api.schemas.plan as plan_schema
 
-def create_plan(db: Session, plan: schemas.PlanCreate):
-    db_plan = models.Plan(**plan.dict())
+async def create_plan(db: Session, plan: plan_schema.PlanCreate):
+    db_plan = models.Plan(description=plan.description, budget=plan.budget, situation=plan.situation, with_whom=plan.with_whom)
     db.add(db_plan)
-    db.commit()
-    db.refresh(db_plan)
+    for place_data in plan.places:
+        db_place = models.Place(plan_id=db_plan.id,url = place_data.url)
+        db.add(db_place)
+
+    await db.commit()
+    await db.refresh(db_plan)
+    await db.refresh(db_place)
     return db_plan
