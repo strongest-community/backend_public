@@ -1,11 +1,10 @@
 """migrate_db.py"""
 
+import os
 from sqlalchemy import create_engine
 
-
-from api.models.models import Base
 from dotenv import load_dotenv
-import os
+from api.models.models import Base
 
 load_dotenv()
 DB_URL = os.getenv("DB_URL")

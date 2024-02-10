@@ -1,7 +1,8 @@
 """CRUD operations for places."""
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import api.models.models as models
+from api.models import models
 import api.schemas.place as place_schema
 
 

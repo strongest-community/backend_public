@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-import api.models.models as models
+from api.models import models
 import api.schemas.plan as plan_schema
 
 
