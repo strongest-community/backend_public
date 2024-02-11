@@ -41,7 +41,7 @@ async def get_task_by_id(db: AsyncSession, plan_id: int):
     result = await db.execute(
         select(models.Plan)
         .where(models.Plan.id == plan_id)
-        .options(selectinload(models.Plan.places))
+        .options(selectinload(models.Plan.places), selectinload(models.Plan.comments))
     )
     plan = result.scalars().first()
     return plan
