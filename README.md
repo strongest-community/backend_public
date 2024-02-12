@@ -10,7 +10,7 @@
 ### 発表資料
 
 - 当日発表資料
-  - [pdf]([https://docs.google.com/presentation/d/1TkYVXgN8McIJhpX1Q9xsjC1YxLgaCmylK-CpYYaUo-A/edit?usp=sharing](https://drive.google.com/file/d/1YkphcnxUufjyx4-JaE6nSClMftS8uctG/view?usp=sharing))
+  - [PDF](https://drive.google.com/file/d/1YkphcnxUufjyx4-JaE6nSClMftS8uctG/view?usp=sharing) 
 - デモ動画
   - [Youtube](https://www.youtube.com/watch?v=1wJBQkTx-Pk)
 
